@@ -24,9 +24,12 @@ public class KopseController {
         return pelaajat;
     }
 
-    @GetMapping("/rest/kolme")
+    @GetMapping("/kalenteri/kymmenen")
     public Object haeKaikki() throws IOException, GeneralSecurityException {
         return CalendarQuickstart.tuoTapahtumat();
     }
-
+    @GetMapping("/kalenteri/yksi")
+    public Object haeYksi() throws IOException, GeneralSecurityException {
+        return CalendarQuickstart.tuoYksiTapahtuma();
+    }
 }

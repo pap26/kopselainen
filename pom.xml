@@ -78,6 +78,14 @@
             <artifactId>google-api-services-calendar</artifactId>
             <version>v3-rev305-1.23.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+        </dependency>
+
     </dependencies>
 
     <build>
