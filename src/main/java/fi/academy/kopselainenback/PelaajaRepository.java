@@ -2,8 +2,10 @@ package fi.academy.kopselainenback;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface PelaajaRepository extends CrudRepository <Pelaaja, Integer> {
+import java.util.List;
 
-    Iterable<Pelaaja> findByPelipaikka(Pelaaja pelaaja);
+public interface PelaajaRepository extends CrudRepository<Pelaaja, Integer> {
+
+    List<Pelaaja> findAllByTerve(Boolean terve);
 
 }
