@@ -66,7 +66,7 @@ public class KopseController {
     @PutMapping("/pelaaja")
     ResponseEntity<Pelaaja> paivitaPelaaja(@Valid @RequestBody Pelaaja pelaaja) {
         loggeri.info("Yritetään päivittää pelaajaa: {}", pelaaja);
-        Pelaaja result =  pelaajarepo.save(pelaaja);
+        Pelaaja result = pelaajarepo.save(pelaaja);
         return ResponseEntity.ok().body(result);
     }
 
@@ -77,14 +77,17 @@ public class KopseController {
         loggeri.info("Yritetään delliä pelaajaa: {}", id);
         pelaajarepo.deleteById(id);
         return ResponseEntity.ok().build();
-
-    @GetMapping("/kalenteri/kymmenen")
-    public Object haeKaikki() throws IOException, GeneralSecurityException {
-        return CalendarQuickstart.tuoTapahtumat();
     }
-    @GetMapping("/kalenteri/yksi")
-    public Object haeYksi() throws IOException, GeneralSecurityException {
-        return CalendarQuickstart.tuoYksiTapahtuma();
 
+        @GetMapping("/kalenteri/kymmenen")
+        public Object haeKaikki () throws IOException, GeneralSecurityException {
+            return CalendarQuickstart.tuoTapahtumat();
+        }
+
+        @GetMapping("/kalenteri/yksi")
+        public Object haeYksi () throws IOException, GeneralSecurityException {
+            return CalendarQuickstart.tuoYksiTapahtuma();
+
+        }
     }
-}
+
