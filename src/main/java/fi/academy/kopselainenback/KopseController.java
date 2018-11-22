@@ -38,16 +38,7 @@ public class KopseController {
         Iterable<Pelaaja> pelaajat = pelaajarepo.findAll();
         return pelaajat;
     }
-
-
-/*    @RequestMapping(value="/terveet")
-    public Iterable<Pelaaja> terveetpelaajat() {
-        Iterable<Pelaaja> terveet = pelaajarepo.findAllByTerve(true);
-        return terveet;
-    }
-
-    */
-
+    
     @GetMapping("/pelaaja/{id}")
     ResponseEntity<?> haeIideella(@PathVariable Integer id) {
         Optional<Pelaaja> pelaaja = pelaajarepo.findById(id);
@@ -71,7 +62,6 @@ public class KopseController {
     }
 
 
-    //toimii
     @DeleteMapping("/pelaaja/{id}")
     public ResponseEntity<String> poistapelaaja(@PathVariable Integer id) {
         loggeri.info("Yritetään delliä pelaajaa: {}", id);
