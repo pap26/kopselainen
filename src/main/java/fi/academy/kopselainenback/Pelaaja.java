@@ -1,9 +1,6 @@
 package fi.academy.kopselainenback;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,8 +8,9 @@ import java.util.Date;
 public class Pelaaja {
 
     @Id
-    @GeneratedValue
-    private Integer id; //primary key, serial!
+    @SequenceGenerator(name="seq-gen",sequenceName="pelaaja_id_seq", initialValue=10, allocationSize=12)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
     private String etunimi;
     private String sukunimi;
     private Integer numero;
@@ -22,28 +20,24 @@ public class Pelaaja {
     private String puhnro;
     private String email;
     private String lempiruoka;
+    private String info;
+    private String kuvapolku;
 
     public Pelaaja() {
     }
 
-    public Pelaaja(String etunimi, String sukunimi, Integer numero, boolean terve, Date syntymaaika, String puhnro, String email, String lempiruoka) {
+    public Pelaaja(String etunimi, String sukunimi, Integer numero, boolean terve, Date syntymaaika, String pelipaikka, String puhnro, String email, String lempiruoka, String info, String kuvapolku) {
         this.etunimi = etunimi;
         this.sukunimi = sukunimi;
         this.numero = numero;
         this.terve = terve;
-        this.pelipaikka = pelipaikka;
         this.syntymaaika = syntymaaika;
+        this.pelipaikka = pelipaikka;
         this.puhnro = puhnro;
         this.email = email;
         this.lempiruoka = lempiruoka;
-    }
-
-    public String getPelipaikka() {
-        return pelipaikka;
-    }
-
-    public void setPelipaikka(String pelipaikka) {
-        this.pelipaikka = pelipaikka;
+        this.info = info;
+        this.kuvapolku = kuvapolku;
     }
 
     public Integer getId() {
@@ -94,6 +88,14 @@ public class Pelaaja {
         this.syntymaaika = syntymaaika;
     }
 
+    public String getPelipaikka() {
+        return pelipaikka;
+    }
+
+    public void setPelipaikka(String pelipaikka) {
+        this.pelipaikka = pelipaikka;
+    }
+
     public String getPuhnro() {
         return puhnro;
     }
@@ -116,5 +118,37 @@ public class Pelaaja {
 
     public void setLempiruoka(String lempiruoka) {
         this.lempiruoka = lempiruoka;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getKuvapolku() {
+        return kuvapolku;
+    }
+
+    public void setKuvapolku(String kuvapolku) {
+        this.kuvapolku = kuvapolku;
+    }
+
+    @Override
+    public String toString() {
+        return "Pelaaja{" +
+                "id=" + id +
+                ", etunimi='" + etunimi + '\'' +
+                ", sukunimi='" + sukunimi + '\'' +
+                ", numero=" + numero +
+                ", terve=" + terve +
+                ", syntymaaika=" + syntymaaika +
+                ", pelipaikka='" + pelipaikka + '\'' +
+                ", puhnro='" + puhnro + '\'' +
+                ", email='" + email + '\'' +
+                ", lempiruoka='" + lempiruoka + '\'' +
+                '}';
     }
 }
