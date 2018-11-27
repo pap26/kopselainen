@@ -28,16 +28,25 @@ public class KopseController {
 
     private final Logger loggeri = LoggerFactory.getLogger(KopseController.class);
     private PelaajaRepository pelaajarepo;
+    private ToimihenkiloRepository toimihlorepo;
 
     @Autowired
-    public KopseController(PelaajaRepository pelaajarepo) {
+    public KopseController(PelaajaRepository pelaajarepo, ToimihenkiloRepository toimihlorepo) {
         this.pelaajarepo = pelaajarepo;
+        this.toimihlorepo = toimihlorepo;
     }
+
 
     @RequestMapping(value = "/pelaajat")
     public Iterable<Pelaaja> index() {
         Iterable<Pelaaja> pelaajat = pelaajarepo.findAll();
         return pelaajat;
+    }
+
+    @RequestMapping(value = "/toimihlot")
+    public Iterable<Toimihenkilo> indeksi() {
+        Iterable<Toimihenkilo> toimihlot = toimihlorepo.findAll();
+        return toimihlot;
     }
 
     @GetMapping("/pelaaja/{id}")
