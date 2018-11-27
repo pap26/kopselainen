@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class KopseController {
@@ -38,7 +39,7 @@ public class KopseController {
         Iterable<Pelaaja> pelaajat = pelaajarepo.findAll();
         return pelaajat;
     }
-    
+
     @GetMapping("/pelaaja/{id}")
     ResponseEntity<?> haeIideella(@PathVariable Integer id) {
         Optional<Pelaaja> pelaaja = pelaajarepo.findById(id);
@@ -47,20 +48,20 @@ public class KopseController {
     }
 
     @PostMapping("/pelaaja")
-    ResponseEntity<Pelaaja> luoPelaaja(@Valid @RequestBody Pelaaja pelaaja) throws URISyntaxException {
+    ResponseEntity<Pelaaja> luoPelaaja(@RequestBody Pelaaja pelaaja) throws URISyntaxException {
         loggeri.info("Yritetään luoda pelaaja: {}", pelaaja);
         Pelaaja result = pelaajarepo.save(pelaaja);
         return ResponseEntity.created(new URI("api/pelaaja/" + result.getId()))
                 .body(result);
     }
 
-    @PutMapping("/pelaaja")
-    ResponseEntity<Pelaaja> paivitaPelaaja(@Valid @RequestBody Pelaaja pelaaja) {
+    @PutMapping("/pelaajaput")
+    ResponseEntity<Pelaaja> paivitaPelaaja(@Valid @RequestBody Pelaaja pelaaja, Integer id) {
         loggeri.info("Yritetään päivittää pelaajaa: {}", pelaaja);
+        //lisää tähän jotain tsekkiä, onko pelaaja olemassa
         Pelaaja result = pelaajarepo.save(pelaaja);
         return ResponseEntity.ok().body(result);
     }
-
 
     @DeleteMapping("/pelaaja/{id}")
     public ResponseEntity<String> poistapelaaja(@PathVariable Integer id) {
