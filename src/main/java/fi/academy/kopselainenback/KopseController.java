@@ -3,16 +3,12 @@ package fi.academy.kopselainenback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,12 +60,16 @@ public class KopseController {
                 .body(result);
     }
 
-    @PutMapping("/pelaajaput")
-    ResponseEntity<Pelaaja> paivitaPelaaja(@Valid @RequestBody Pelaaja pelaaja, Integer id) {
+    @PutMapping("/pelaaja/lisaa/{id}")
+    ResponseEntity<Pelaaja> paivitaPelaaja(@RequestBody Pelaaja pelaaja, @PathVariable Integer id) {
         loggeri.info("Yritetään päivittää pelaajaa: {}", pelaaja);
-        //lisää tähän jotain tsekkiä, onko pelaaja olemassa
-        Pelaaja result = pelaajarepo.save(pelaaja);
-        return ResponseEntity.ok().body(result);
+        Optional<Pelaaja> pelaajaOptional = pelaajarepo.findById(id);
+
+        if (!pelaajaOptional.isPresent())
+            return ResponseEntity.notFound().build();
+        pelaaja.setId(id);
+        pelaajarepo.save(pelaaja);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/pelaaja/{id}")
